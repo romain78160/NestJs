@@ -1,4 +1,4 @@
-import { MethodNotAllowedException } from '@nestjs/common';
+import { MethodNotAllowedException, UseFilters } from '@nestjs/common';
 import {
   Body,
   Controller,
@@ -13,6 +13,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { HttpExceptionFilterEx } from 'src/filters/http-exception.filter';
 import { CreateTodoDto, UpdateTodoDto } from './Dto/todo.dto';
 import { Todo } from './interfaces/todo.interface';
 import { TodosService } from './todos.service';
@@ -24,8 +25,11 @@ export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
   @Get('/exception')
+  @UseFilters(HttpExceptionFilterEx) //interception de l'exception (log, custom response)
   exceptionTodos() {
     // throw new HttpException('Forbiden', HttpStatus.FORBIDDEN);
+
+    //*************** override exception ***************//
     // throw new HttpException(
     //   {
     //     status: HttpStatus.FORBIDDEN,
@@ -34,7 +38,7 @@ export class TodosController {
     //   HttpStatus.FORBIDDEN,
     // );
 
-    //renvoie une exception préfaite
+    //*************** renvoie une exception pré-faite ***************//
     throw new MethodNotAllowedException(); //
   }
 
