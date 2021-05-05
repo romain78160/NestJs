@@ -33,6 +33,8 @@ export class TodosController {
     //   },
     //   HttpStatus.FORBIDDEN,
     // );
+
+    //renvoie une exception préfaite
     throw new MethodNotAllowedException(); //
   }
 
